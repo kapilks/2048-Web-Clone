@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>2048</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div id="container">
+			<div id="box" class="float_left">
+				
+			</div>
+			<div id="control" class="float_right">
+				<div class="score">23</div>
+				<div id="button">
+					<a href="" class="top"></a>
+					<a href="" class="left"></a>
+					<a href="" class="bottom"></a>
+					<a href="" class="right"></a>
+				</div>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+
+		<script src="jquery-1.10.2.js"></script>
+		<script src="game.js"></script>
+		<script>
+		$(document).ready(function()
+		{
+			start();
+			$('html').keydown(function(event)
+			{
+				//document.write('kapil');
+				var code = event.keyCode;
+				if( code == 37 )//left
+					$('#button .left').click();
+				else if( code == 38)//up
+					$('#button .top').click();
+				else if( code == 39)//right
+					$('#button .right').click();
+				else if(code == 40)//down
+					$('#button .bottom').click();
+			});
+			$('#button .top').click(function()
+			{
+				event.preventDefault();
+				shift_top();
+				check_looser();
+			});
+			$('#button .bottom').click(function()
+			{
+				event.preventDefault();
+				shift_bottom();
+				check_looser();
+			});
+			$('#button .left').click(function()
+			{
+				event.preventDefault();
+				shift_left();
+				check_looser();
+			});
+			$('#button .right').click(function()
+			{
+				event.preventDefault();
+				shift_right();
+				check_looser();
+			});
+
+			function check_looser()
+			{
+				if( is_lose() )
+				{
+					$('#container').css({'opacity':.5});
+					$('body').append('<div class="modal"><h3>You Lose</h3><h3>Score '+getScore()+'</h3><a href="" onclick="start();">Try Again</a></div>');
+				}
+			}
+		});
+		</script>
+	</body>
+</html>
